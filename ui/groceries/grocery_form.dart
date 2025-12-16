@@ -46,7 +46,13 @@ class _NewItemState extends State<NewItem> {
   }
 
   void onAdd() {
-    // Will be implemented later - Create and return the new grocery
+    String name = _nameController.text;
+    int quantity = int.tryParse(_quantityController.text) ?? defaultQuantity;
+    GroceryCategory category = _selectedCategory;
+
+    final newGrocery = Grocery(name: name, quantity: quantity, category: category);
+
+    Navigator.pop(context, newGrocery);
   }
 
   @override
@@ -59,6 +65,7 @@ class _NewItemState extends State<NewItem> {
           children: [
             TextField(
               controller: _nameController,
+              style: Theme.of(context).textTheme.bodyMedium,
               maxLength: 50,
               decoration: const InputDecoration(label: Text('Name')),
             ),
@@ -69,6 +76,7 @@ class _NewItemState extends State<NewItem> {
                 Expanded(
                   child: TextField(
                     controller: _quantityController,
+                    style: Theme.of(context).textTheme.bodyMedium,
                     decoration: const InputDecoration(label: Text('Quantity')),
                   ),
                 ),
@@ -76,7 +84,17 @@ class _NewItemState extends State<NewItem> {
                 Expanded(
                   child: DropdownButtonFormField<GroceryCategory>(
                     initialValue: _selectedCategory,
-                    items: [  ],
+                    items: GroceryCategory.values.map((category) => DropdownMenuItem<GroceryCategory>(
+                      value: category, 
+                      child: Row( 
+                        children: [
+                          Container(width: 15, height: 15, color: category.color),
+                          SizedBox(width: 10),
+                          Text(category.name.toUpperCase(), style: Theme.of(context).textTheme.bodyMedium),
+                          ],
+                        )
+                      )
+                    ).toList(),
                     onChanged: (value) {
                       if (value != null) {
                         setState(() {

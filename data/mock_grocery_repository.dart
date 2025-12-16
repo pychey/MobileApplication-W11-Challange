@@ -1,18 +1,15 @@
 import '../models/grocery.dart';
 
 final dummyGroceryItems = [
-  const Grocery(
-      id: 'a',
+  Grocery(
       name: 'Milk',
       quantity: 1,
       category: GroceryCategory.dairy),
-  const Grocery(
-      id: 'b',
+  Grocery(
       name: 'Bananas',
       quantity: 5,
       category: GroceryCategory.fruit),
-  const Grocery(
-      id: 'c',
+  Grocery(
       name: 'Beef Steak',
       quantity: 1,
       category: GroceryCategory.meat),
